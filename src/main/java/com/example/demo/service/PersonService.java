@@ -32,7 +32,7 @@ public class PersonService {
 		List<Person> personList = new ArrayList<>();
 		personList.add(new Person(null, "A", "B", new Date()));
 		personList.add(new Person(null, "C", "D", new Date()));
-		personRepository.saveAll(personList);
+		personRepository.saveAll(personList).subscribe();
 	}
 
 	/**
