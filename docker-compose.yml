@@ -1,0 +1,28 @@
+version: '3'
+services:
+   neo4j:
+        image: neo4j:latest
+        ports: 
+          - 7475:7474
+          - 7688:7687
+        volumes:
+          - ./neo4j/conf:/conf
+          - ./neo4j/data:/data
+          - ./neo4j/import:/import
+          - ./neo4j/logs:/logs
+          - ./neo4j/plugins:/plugins
+        environment: 
+          - NEO4J_AUTH=neo4j/test
+          - NEO4J_PASSWD=test
+          - NEO4JLABS_PLUGINS=["apoc"]
+   app:
+      build: ./
+      depends_on:
+      - neo4j
+      ports:
+      - 8080:8080
+      entrypoint: ["/usr/wait-for-it.sh", "--timeout=0", "neo4j:7687","--", "java","-jar","neo4jTestApplication.jar"]
+      environment:
+         SPRING_NEO4J_URI: bolt://neo4j:7687
+         SPRING.NEO4J.AUTHENTICATION.USERNAME: neo4j
+         SPRING.NEO4J.AUTHENTICATION.PASSWORD: SXgUkLXpTWL46VaF
