@@ -10,3 +10,6 @@ Use maven to build;
 ###### mvn clean install -DskipTests
 Use Docker compose to run Application and Neo4j
 ###### docker-compose -f docker-compose.yml up -d --build
+
+# Test
+Open http://localhost:8080/people from browser then check the logs.
